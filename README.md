@@ -62,7 +62,7 @@ $ conda activate easyocr
 
 ```
 $ cd digit_detector_easyocr
-$ python pred_easyocr_win.py -g ground_truths/ground_truth.txt  -n train_numbers.txt
+$ python pred_easyocr_win.py -g ground_truths/ground_truth.txt  -n train_numbers/train_numbers.txt
 ```
 
 
