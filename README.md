@@ -3,11 +3,17 @@
 System for detection and recognition of train plate numbers based on EasyOCR
 
 
+## Digit Detector Based on EasyOCR [https://github.com/JaidedAI/EasyOCR]
 
+### Installing the Digit Detector
 
-## Anaconda [https://docs.anaconda.com/anaconda/install/linux/]
+```
+$ pip install python-bidi
+$ pip3 install scikit-build
+$ pip3 install easyocr
+```
 
-### To install:
+### Installing Anaconda  [https://docs.anaconda.com/anaconda/install/linux/]
 
 * Install dependencies:
 
@@ -23,33 +29,18 @@ $ apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 lib
 $ bash $HOME/Downloads/Anaconda3-2020.02-Linux-x86_64.sh
 ```
 
-### To run:
-
 * Create an Anaconda environment: 
 
 ```
 $ conda create -n easyocr python=3.6
-$ activate easyocr # in linux "source activate easyocr"
+$ conda activate easyocr # in linux "source activate easyocr"
 (easyocr) $ pip install -r requirements.txt
-(easyocr) $ pip install -e .
 ```
 
 * In order not to run Anaconda every time a terminal is opened, comment out the last lines added to .bashrc by the Anaconda installer.
 
 
-
-
-## Digit Detector Based on EasyOCR [https://github.com/JaidedAI/EasyOCR]
-
-### To install:
-
-```
-$ pip install python-bidi
-$ pip3 install scikit-build
-$ pip3 install easyocr
-```
-
-### To run:
+### Running the Digit Detector
 
 * Activate Anaconda environment:
 
