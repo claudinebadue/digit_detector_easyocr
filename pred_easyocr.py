@@ -223,6 +223,7 @@ def check_last_detections(last_detections):
     
     return(t_most_common == t[1])
 
+
 # main
 if __name__ == '__main__':
     args, ground_truth, train_numbers = parse_arguments()
@@ -238,16 +239,63 @@ if __name__ == '__main__':
         image = cv2.imread(gt_line[0])
         image = image[:,:,::-1]
         
+        #if DEBUG_FLAG:
+        #    plt.imshow(image)    
+        #    plt.show()
+        
         camera_id = int(gt_line[2])
         image = image[crops[camera_id][0]:crops[camera_id][1], crops[camera_id][2]:crops[camera_id][3]]
 
+        #if DEBUG_FLAG:
+        #    plt.imshow(image)    
+        #    plt.show()
+    
         cv2.imwrite("caco.jpg", image)
         detections = reader.readtext("caco.jpg") 
         
         print("****")
         print(detections)
+        
+        train_number_detected = get_train_number_easyocr(detections, train_numbers)
+        gt_train_number = int(gt_line[1])
+        t = (train_number_detected, gt_train_number)
+        last_detections.append(t)
+        num_images_examined = num_images_examined + 1
+        counter = counter + 1
+        if t[0] == t[1]:
+            hits = hits + 1
+            print(gt_line[0], ": Acertou! ", train_number_detected, " = ", gt_train_number, ", num_images_examined = ", num_images_examined, ", % correct = ", hits / num_images_examined)
+        else:
+            print(gt_line[0], ": Errou... ", train_number_detected, " != ", gt_train_number, ", num_images_examined = ", num_images_examined, ", % correct = ", hits / num_images_examined)
+
+        if counter > (WINDOW_SIZE - 2):
+            break
     
-       # Computa a taxa de acertos
+    num_images_examined = 0
+    hits = 0 
+    for gt_line in ground_truth[WINDOW_SIZE-1:]:
+        image = cv2.imread(gt_line[0])
+        image = image[:,:,::-1]
+           
+        #if DEBUG_FLAG:
+        #    plt.imshow(image)    
+        #    plt.show()
+        
+        camera_id = int(gt_line[2])
+        image = image[crops[camera_id][0]:crops[camera_id][1], crops[camera_id][2]:crops[camera_id][3]]
+
+        #if DEBUG_FLAG:
+        #    plt.imshow(image)    
+        #    plt.show()
+    
+        cv2.imwrite("caco.jpg", image)
+        detections = reader.readtext("caco.jpg") # só sei fazer lendo de arquivo no momento...
+        #detections = reader.readtext(image="caco.jpg", allowlist="0123456789") 
+        
+        print("****")
+        print(detections)    
+    
+        # Computa a taxa de acertos
         train_number_detected = get_train_number_easyocr(detections, train_numbers)
         gt_train_number = int(gt_line[1])
         t = (train_number_detected, gt_train_number)
